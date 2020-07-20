@@ -1,6 +1,7 @@
 '''
 实现从网页打开视频并进行检测
-python webstreaming.py --ip 0.0.0.0 --port000
+去除了复杂的终端　运行，默认打开本地端口8000
+python webstreaming.py
 '''
 
 
@@ -68,18 +69,10 @@ def video_feed():
 
 
 if __name__ == '__main__':
-    ap = argparse.ArgumentParser()
-    ap.add_argument("-i", "--ip", type=str, required=True, default='0.0.0.0',
-        help="ip address of the device")
-    ap.add_argument("-o", "--port", type=int, required=True, default=8000,
-        help="ephemeral port number of the server (1024 to 65535)")
-    args = vars(ap.parse_args())
-
-    # start a thread that will perform detection
     t = threading.Thread(target=detect)
     t.daemon = True
     t.start()
 
-    app.run(host=args["ip"], port=args["port"], debug=True,
+    app.run(host='127.0.0.1', port=8000, debug=True,
             threaded=True, use_reloader=False)
 
