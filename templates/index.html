@@ -1,13 +1,7 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="pragma" content="no-cache">
-    <meta http-equiv="cache-control" content="no-cache">
-    <meta http-equiv="expires" content="0">
-    <meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
-    <meta http-equiv="description" content="This is my page">
-    <title>斜视检测系统</title>
+{% extends 'base.html' %}
+<link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+{% block style %}
     <style>
         body {
             background-size: cover; /*自适应浏览器*/
@@ -105,28 +99,30 @@
         }
     </style>
 
-    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    <script src="{{ url_for('static', filename='js/jquery-3.3.1.min.js') }}"></script>
-    <script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
-    <script src="{{ url_for('static', filename='js/particle-bg.umd.min.js') }}"></script>
+    {% endblock %}
 
-    <script type="text/javaScript">
-    window.onload = function() {
-        particleBg('body', {
-        color: 'rgba(255, 255, 255, 0.5)'
-      });
-    }
-    </script>
-</head>
-<body>
-    <div class="div_body">
 
-        <div id="_body">
-             <h1 class="msg" style="cursor:default"> 斜视检测　</h1>
-            <br>
-            <a href="{{ url_for('result') }}"><input class="btn" type="button" name="Go" value="Let's GO"/></a>
-        </div>
+{% block js %}
+        <script src="{{ url_for('static', filename='js/jquery-3.3.1.min.js') }}"></script>
+        <script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
+        <script src="{{ url_for('static', filename='js/particle-bg.umd.min.js') }}"></script>
+        <script type="text/javaScript">
+            window.onload = function() {
+                particleBg('body', {
+                color: 'rgba(255, 255, 255, 0.5)'
+              });
+            }
+        </script>
+    {% endblock %}
+
+{% block content %}
+
+<div class="div_body">
+    <div id="_body">
+         <h1 class="msg" style="cursor:default"> 斜视检测　</h1>
+        <br>
+        <a href="{{ url_for('main') }}"><input class="btn" type="button" name="Go" value="Let's GO"/></a>
     </div>
-</body>
-</html>
+</div>
 
+{% endblock %}

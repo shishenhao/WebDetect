@@ -24,7 +24,6 @@ class GazeTracking(object):
 
         # _predictor is used to get facial landmarks of a given face
         cwd = os.path.abspath(os.path.dirname(__file__))
-        # your path of shape_predictor_68_face_landmarks.dat
         model_path = os.path.abspath(os.path.join(cwd, "/home/hichens/Datasets/dat/shape_predictor_68_face_landmarks.dat"))
         self._predictor = dlib.shape_predictor(model_path)
 
@@ -46,7 +45,10 @@ class GazeTracking(object):
         faces = self._face_detector(frame)
 
         try:
-            landmarks = self._predictor(frame, faces[0])
+            self.face = faces[0]
+            landmarks = self._predictor(frame, self.face)
+            self.left_point = [landmarks.part(36).x, landmarks.part(36).y]
+            self.right_point = [landmarks.part(45).x, landmarks.part(45).y]
             self.eye_left = Eye(frame, landmarks, 0, self.calibration)
             self.eye_right = Eye(frame, landmarks, 1, self.calibration)
 
@@ -124,11 +126,20 @@ class GazeTracking(object):
 
         if self.pupils_located:
             color = (0, 255, 0)
+            face = self.face
+            left, top, right, bottom = face.left(), face.top(), face.right(), face.bottom()
+            # draw the face
+            cv2.rectangle(frame, (left, top), (right, bottom), color, 3)
             x_left, y_left = self.pupil_left_coords()
             x_right, y_right = self.pupil_right_coords()
             cv2.line(frame, (x_left - 5, y_left), (x_left + 5, y_left), color)
             cv2.line(frame, (x_left, y_left - 5), (x_left, y_left + 5), color)
             cv2.line(frame, (x_right - 5, y_right), (x_right + 5, y_right), color)
             cv2.line(frame, (x_right, y_right - 5), (x_right, y_right + 5), color)
+
+            x_left, y_left = self.left_point
+            x_right, y_right = self.right_point
+            cv2.circle(frame, (x_left, y_left), 2, color)
+            cv2.circle(frame, (x_right, y_right), 2, color)
 
         return frame

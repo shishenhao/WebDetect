@@ -1,10 +1,15 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>$Title$</title>
-</head>
-<body>
-$END$
-</body>
-</html>
+{% extends 'base.html' %}
+
+{% block content %}
+
+    <div >
+        <div style="margin: auto; text-align: center;">
+            <h1>斜视检测</h1>
+            <img src="{{ url_for('video_feed') }}">
+        </div>
+        <div style="margin: 2% 0 0 0 ; text-align: center;">
+            <a href="{{ url_for('index') }}"><input class="btn" type="button" name="Go Back" value="Go Back"/></a>
+            <a href="{{ url_for('result') }}"><input class="btn" type="button" name="Test" value="Result"/></a>
+        </div>
+    </div>
+{% endblock %}
