@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>斜视检测系统</title>
+
+    <style>
+        body {
+            background-size: cover; /*自适应浏览器*/
+        }
+        .main{
+        text-align: center; /*让div内部文字居中*/
+        background-color: #fff;
+        border-radius: 20px;
+        margin: auto;
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        }
+    </style>
+
+</head>
+
+  <body>
+    <div class="main">
+        <h1>斜视检测</h1>
+        <img src="{{ url_for('video_feed') }}">
+    </div>
+  </body>
+</html>

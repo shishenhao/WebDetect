@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="BranchesTreeState">
+    <expand>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="LOCAL_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:origin" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+    </expand>
+    <select />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="052b87ca-1c58-46ab-9802-4f27fdd33c69" name="Default Changelist" comment="update the web page">
+      <change beforePath="$PROJECT_DIR$/GazeTracking/gaze_tracking/trained_models/shape_predictor_68_face_landmarks.dat" beforeDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="HTML File" />
+        <option value="Python Script" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectId" id="1etZSPLParpY6UFOJVSFH8v4LDM" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="DefaultHtmlFileTemplate" value="HTML File" />
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../GitProject/GazeTracking" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/GazeTracking" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Python.WebDetect">
+    <configuration name="WebDetect" type="PythonConfigurationType" factoryName="Python">
+      <module name="WebDetect" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/webstreaming.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="example" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="WebDetect" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/GazeTracking" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/GazeTracking/example.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Python.example" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="052b87ca-1c58-46ab-9802-4f27fdd33c69" name="Default Changelist" comment="" />
+      <created>1595142848978</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1595142848978</updated>
+      <workItem from="1595142851102" duration="2089000" />
+      <workItem from="1595149620637" duration="2342000" />
+      <workItem from="1595153520087" duration="23000" />
+      <workItem from="1595155023955" duration="9501000" />
+      <workItem from="1595207852219" duration="4877000" />
+    </task>
+    <task id="LOCAL-00001" summary="update the web page">
+      <created>1595151030000</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1595151030000</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="2" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="oldMeFiltersMigrated" value="true" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="update the web page" />
+    <option name="LAST_COMMIT_MESSAGE" value="update the web page" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="100" y="128" width="1720" height="852" key="DiffContextDialog" timestamp="1595151444079">
+      <screen x="0" y="28" width="1920" height="1052" />
+    </state>
+    <state x="100" y="128" width="1720" height="852" key="DiffContextDialog/0.28.1920.1052@0.28.1920.1052" timestamp="1595151444079" />
+    <state x="743" y="312" width="424" height="492" key="FileChooserDialogImpl" timestamp="1595212991912">
+      <screen x="0" y="28" width="1920" height="1052" />
+    </state>
+    <state x="743" y="312" width="424" height="492" key="FileChooserDialogImpl/0.28.1920.1052@0.28.1920.1052" timestamp="1595212991912" />
+    <state width="1866" height="200" key="GridCell.Tab.0.bottom" timestamp="1595212993025">
+      <screen x="0" y="28" width="1920" height="1052" />
+    </state>
+    <state width="1866" height="200" key="GridCell.Tab.0.bottom/0.28.1920.1052@0.28.1920.1052" timestamp="1595212993025" />
+    <state width="1866" height="200" key="GridCell.Tab.0.center" timestamp="1595212993024">
+      <screen x="0" y="28" width="1920" height="1052" />
+    </state>
+    <state width="1866" height="200" key="GridCell.Tab.0.center/0.28.1920.1052@0.28.1920.1052" timestamp="1595212993024" />
+    <state width="1866" height="200" key="GridCell.Tab.0.left" timestamp="1595212993024">
+      <screen x="0" y="28" width="1920" height="1052" />
+    </state>
+    <state width="1866" height="200" key="GridCell.Tab.0.left/0.28.1920.1052@0.28.1920.1052" timestamp="1595212993024" />
+    <state width="1866" height="200" key="GridCell.Tab.0.right" timestamp="1595212993024">
+      <screen x="0" y="28" width="1920" height="1052" />
+    </state>
+    <state width="1866" height="200" key="GridCell.Tab.0.right/0.28.1920.1052@0.28.1920.1052" timestamp="1595212993024" />
+    <state x="774" y="181" width="361" height="753" key="RollbackChangesDialog" timestamp="1595151048014">
+      <screen x="0" y="28" width="1920" height="1052" />
+    </state>
+    <state x="774" y="181" width="361" height="753" key="RollbackChangesDialog/0.28.1920.1052@0.28.1920.1052" timestamp="1595151048014" />
+    <state x="624" y="196" width="670" height="676" key="search.everywhere.popup" timestamp="1595158966773">
+      <screen x="0" y="28" width="1920" height="1052" />
+    </state>
+    <state x="624" y="196" width="670" height="676" key="search.everywhere.popup/0.28.1920.1052@0.28.1920.1052" timestamp="1595158966773" />
+  </component>
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/WebDetect$example.coverage" NAME="example Coverage Results" MODIFIED="1595155123240" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/GazeTracking" />
+    <SUITE FILE_PATH="coverage/WebDetect$WebDetect.coverage" NAME="WebDetect Coverage Results" MODIFIED="1595212387991" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
+  </component>
+</project>
