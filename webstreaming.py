@@ -14,18 +14,30 @@ import threading
 import argparse
 import time
 import cv2
+import numpy as np
 import matplotlib.pyplot as plt
+import seaborn as sns
+import warnings
 import os
 import datetime
+
+sns.set()
+warnings.filterwarnings("ignore")
 
 
 outputFrame = None
 lock = threading.Lock()
 app = Flask(__name__)
 app.config['SEND_FILE_MAX_AGE_DEFAULT'] = datetime.timedelta(seconds=1)
-flag = False
+flag = False # control the camera
+
+# 统计变量
 Xrelative = []
 Yrelative = []
+cosValue = []
+
+# video="http://admin:admin@192.168.43.1:8081/"   #此处@后的ipv4 地址需要修改为自己的地址
+video = "/home/hichens/Datasets/xieshi/lj.mp4"
 
 @app.route("/")
 @app.route("/index.html")
@@ -49,36 +61,83 @@ def result():
     basedir = os.path.abspath(os.path.dirname(__file__))
     path = basedir + "/static/images/result.png"
     fig = plt.gcf()
-    XX = range(len(Xrelative))
-    plt.title(str(datetime.datetime.now()))
-    plt.plot(XX, Xrelative)
-    plt.plot(XX, Yrelative)
-    plt.plot(XX, [max(Xrelative)] * len(Xrelative), '-')
-    plt.plot(XX, [min(Xrelative)] * len(Xrelative), '-')
-    plt.plot(XX, [max(Yrelative)] * len(Xrelative), '-')
-    plt.plot(XX, [min(Yrelative)] * len(Xrelative), '-')
+    fig.set_size_inches(11.5, 6.5) # output size
+
+    '''figure 1 show the x relative position, incluce min, max, avg '''
+    plt.subplot(221)
+    plt.title('figure 1')
+    N = len(Xrelative)
+    XX = range(N)
+    max_Xrelative, min_Xrelative, avg_Xrelative = max(Xrelative), min(Xrelative), np.mean(Xrelative)
+    max_Yrelative, min_Yrelative, avg_Yrelative = max(Yrelative), min(Yrelative), np.mean(Yrelative)
+    plt.plot(XX, Xrelative, label='X')
+    plt.plot(XX, [avg_Xrelative] * N, '-')
+    plt.plot(XX, [max_Xrelative] * N, '--')
+    plt.plot(XX, [min_Xrelative] * N, '--')
+
+    '''figure 2 show the y relative position, incluce min, max, avg '''
+    plt.subplot(222)
+    plt.title('figure 2')
+    plt.plot(XX, Yrelative, label='Y')
+    plt.plot(XX, [max_Yrelative] * N, '--')
+    plt.plot(XX, [min_Yrelative] * N, '--')
+    plt.plot(XX, [avg_Yrelative] * N, '-')
+    plt.legend()
+
+    '''figure 3 show the S value'''
+    plt.subplot(223)
+    plt.title('figure 3')
+    S_x = np.sqrt(sum([x ** 2 for x in Xrelative]) / (N - 1))
+    S_y = np.sqrt(sum([y ** 2 for y in Yrelative]) / (N - 1))
+    S_xy = np.sqrt(sum([x ** 2 + y ** 2 for x, y in zip(Xrelative, Yrelative)]) / (N - 1))
+    S = [S_x, S_y, S_xy]
+    plt.bar(range(len(S)), S)
+    plt.xticks(range(len(S)), ['S_x', 'S-y', 'S_xy'])
+
+    '''figure 4 show the cosine relative value '''
+    plt.subplot(224)
+    plt.title('figure 4')
+    plt.plot(range(len(cosValue)), cosValue, '-o', label='cos')
+    plt.legend()
 
     plt.show()
-    fig.savefig(path)
-    print("draw Done!")
-    return render_template("result.html")
+    fig.savefig(path,  dpi=100)
+    data = {
+        '水平相对移动最大移动值': round(max(Xrelative), 2),
+        '水平相对移动最小移动值': round(min(Yrelative), 2),
+        '水平相对移动平均移动值': round(np.mean(Yrelative), 2),
+        '竖直相对移动最大移动值': round(max(Yrelative), 2),
+        '竖直相对移动最小移动值': round(min(Yrelative), 2),
+        '竖直相对移动平均移动值': round(np.mean(Yrelative), 2),
+
+        '水平相对移动方差值': round(S_x, 4),
+        '竖直相对移动方差值': round(S_y, 4),
+        '综合相对移动方差值': round(S_xy, 4)
+    }
+    return render_template("result.html", data=data)
 
 def detect():
     global outputFrame, lock, Xrelative, Yrelative
-    cap = cv2.VideoCapture(0)
+    cap = cv2.VideoCapture(video)
     Xrelative.clear()
     Yrelative.clear()
+    cosValue.clear()
     while True:
         if flag == False:
             break
         ret, frame = cap.read()
         if ret:
-            frame, xr, yr = findeye(frame)
-            if xr is not None:
+            frame, xr, yr, cosXY = findeye(frame)
+            if xr and yr and cosXY:
                 Xrelative.append(xr)
                 Yrelative.append(yr)
+                cosValue.append(cosXY)
 
             with lock:
+                scale_percent = 700  # percent of original size
+                width = scale_percent
+                height = scale_percent * frame.shape[0] // frame.shape[1]
+                frame = cv2.resize(frame, (width, height))
                 outputFrame = frame.copy()
         else:
             pass
@@ -125,6 +184,6 @@ def video_feed():
 
 
 if __name__ == '__main__':
-    app.run(host='127.0.0.1', port=8000, debug=True,
+    app.run(host='0.0.0.0', port=8000, debug=False,
             threaded=True, use_reloader=False)
 
