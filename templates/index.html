@@ -1,18 +1,63 @@
-<!DOCTYPE HTML>
+{% extends 'base.html' %}
 
-<html>
-<head>
-    <meta charset="utf-8"/>
-    <title>斜视检测</title>
+{% block style %}
     <link rel="stylesheet"  href="{{url_for('static', filename='css/test.css')}}"/>
 	<link rel="stylesheet"  href="../static/css/sa.jpg"/>
 	<link rel="stylesheet"  href="../static/css/over.png"/>
+
+{% endblock %}
+
+
+
+{% block js %}
+    <script src="{{ url_for('static', filename='js/jquery-3.3.1.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/particle-bg.umd.min.js') }}"></script>
     <script src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@1.11.3"></script>
+    <script src="https://cdn.jsdelivr.net/gh/ajlkn/skel@3.0.1/dist/skel.min.js"></script>
+    <script src="{{url_for('static', filename='js/main.js')}}"></script>
+    <script src="{{url_for('static', filename='js/util.js')}}"></script>
 
-	
-</head>
+    <script>
+        $(function () {
+            $(window).load(function () {
+                NProgress.done();
+            });
+            NProgress.set(0.0);
+            NProgress.configure({showSpinner: false});
+            NProgress.configure({minimum: 0.4});
+            NProgress.configure({easing: 'ease', speed: 1200});
+            NProgress.configure({trickleSpeed: 200});
+            NProgress.configure({trickleRate: 0.2, trickleSpeed: 1200});
+            NProgress.inc();
+            $(window).ready(function () {
+                NProgress.start();
+            });
+        });
 
-<body>
+            window.addEventListener('load', () => {
+            fetch('https://api.ly522.com/yan.php?format=json', {
+                method: 'GET',
+            }).then((response) => {
+                return response.json();
+            }).then((r) => {
+                insertHitokoto(r);
+            })
+        });
+
+        function insertHitokoto(data) {
+            let hitokoto = document.getElementById('lwlhitokoto');
+            if (data.author || data.source) {
+                hitokoto.innerHTML = `${data.text} —— ${data.author} ${data.source}`;
+            } else {
+                hitokoto.innerHTML = `${data.text}`;
+            }
+        }
+    </script>
+{% endblock %}
+
+{% block content %}
 
 <div id="wrapper">
     <!--首页开始-->
@@ -29,7 +74,7 @@
         <nav>
             <ul>
                 <li><a href="#1">简介</a></li>
-                <li><a href="{{ url_for('result') }}">测试</a></li>
+                <li><a href="{{ url_for('main') }}">开始</a></li>
             </ul>
         </nav>
 
@@ -52,52 +97,4 @@
 <!-- BG -->
 <div id="bg"></div>
 
-<script src="https://cdn.jsdelivr.net/npm/jquery@1.11.3"></script>
-<script src="https://cdn.jsdelivr.net/gh/ajlkn/skel@3.0.1/dist/skel.min.js"></script>
-<script src="{{url_for('static', filename='js/main.js')}}"></script>
-<script src="{{url_for('static', filename='js/util.js')}}"></script>
-
-
-
-<script>
-
-    $(function () {
-        $(window).load(function () {
-            NProgress.done();
-        });
-        NProgress.set(0.0);
-        NProgress.configure({showSpinner: false});
-        NProgress.configure({minimum: 0.4});
-        NProgress.configure({easing: 'ease', speed: 1200});
-        NProgress.configure({trickleSpeed: 200});
-        NProgress.configure({trickleRate: 0.2, trickleSpeed: 1200});
-        NProgress.inc();
-        $(window).ready(function () {
-            NProgress.start();
-        });
-    });
-
-
-    window.addEventListener('load', () => {
-        fetch('https://api.ly522.com/yan.php?format=json', {
-            method: 'GET',
-        }).then((response) => {
-            return response.json();
-        }).then((r) => {
-            insertHitokoto(r);
-        })
-    });
-
-    function insertHitokoto(data) {
-        let hitokoto = document.getElementById('lwlhitokoto');
-        if (data.author || data.source) {
-            hitokoto.innerHTML = `${data.text} —— ${data.author} ${data.source}`;
-        } else {
-            hitokoto.innerHTML = `${data.text}`;
-        }
-    }
-</script>
-
-</body>
-
-</html>
+{% endblock %}

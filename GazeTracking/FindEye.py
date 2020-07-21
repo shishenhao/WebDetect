@@ -21,7 +21,12 @@ def findeye(frame):
 
     left_pupil = gaze.pupil_left_coords()
     right_pupil = gaze.pupil_right_coords()
+
     cv2.putText(frame, "Left pupil:  " + str(left_pupil), (90, 130), cv2.FONT_HERSHEY_DUPLEX, 0.9, (147, 58, 31), 1)
     cv2.putText(frame, "Right pupil: " + str(right_pupil), (90, 165), cv2.FONT_HERSHEY_DUPLEX, 0.9, (147, 58, 31), 1)
 
-    return frame
+    xr, yr = None, None
+    if gaze.pupil_left_coords():
+        Lrelative = abs(gaze.left_point[0] - gaze.right_point[0])
+        xr, yr = abs(left_pupil[0] - right_pupil[0]) / Lrelative, abs(left_pupil[1] - right_pupil[1]) / Lrelative
+    return frame, xr, yr
