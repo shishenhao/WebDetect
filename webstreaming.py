@@ -16,11 +16,13 @@ import time
 import cv2
 import matplotlib.pyplot as plt
 import os
+import datetime
 
 
 outputFrame = None
 lock = threading.Lock()
 app = Flask(__name__)
+app.config['SEND_FILE_MAX_AGE_DEFAULT'] = datetime.timedelta(seconds=1)
 flag = False
 Xrelative = []
 Yrelative = []
@@ -42,10 +44,13 @@ def main():
 
 @app.route("/result.html")
 def result():
+    global flag
+    flag = False
     basedir = os.path.abspath(os.path.dirname(__file__))
     path = basedir + "/static/images/result.png"
     fig = plt.gcf()
     XX = range(len(Xrelative))
+    plt.title(str(datetime.datetime.now()))
     plt.plot(XX, Xrelative)
     plt.plot(XX, Yrelative)
     plt.plot(XX, [max(Xrelative)] * len(Xrelative), '-')
@@ -94,7 +99,7 @@ def close():
 def generate():
 
     global outputFrame, lock
-    time.sleep(1.0)
+    # time.sleep(1.0)
 
     t = threading.Thread(target=detect)
     t.daemon = True
@@ -104,8 +109,8 @@ def generate():
         with lock:
             if outputFrame is None:
                 continue
-            (flag, encodedImage) = cv2.imencode(".jpg", outputFrame)
-            if not flag:
+            (temp, encodedImage) = cv2.imencode(".jpg", outputFrame)
+            if not temp:
                 continue
         yield(b'--frame\r\n' b'Content-Type: image/jpeg\r\n\r\n' +
             bytearray(encodedImage) + b'\r\n')
