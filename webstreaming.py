@@ -37,7 +37,8 @@ Yrelative = []
 cosValue = []
 
 # video="http://admin:admin@192.168.43.1:8081/"   #此处@后的ipv4 地址需要修改为自己的地址
-video = "/home/hichens/Datasets/xieshi/lj.mp4"
+video = 0 #
+# "/home/hichens/Datasets/xieshi/lj.mp4"
 
 @app.route("/")
 @app.route("/index.html")

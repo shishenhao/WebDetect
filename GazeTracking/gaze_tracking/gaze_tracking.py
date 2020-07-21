@@ -2,6 +2,7 @@ from __future__ import division
 import os
 import cv2
 import dlib
+import math
 from .eye import Eye
 from .calibration import Calibration
 
@@ -47,14 +48,28 @@ class GazeTracking(object):
         try:
             self.face = faces[0]
             landmarks = self._predictor(frame, self.face)
+            self.landmarks = landmarks
             self.left_point = [landmarks.part(36).x, landmarks.part(36).y]
             self.right_point = [landmarks.part(45).x, landmarks.part(45).y]
             self.eye_left = Eye(frame, landmarks, 0, self.calibration)
             self.eye_right = Eye(frame, landmarks, 1, self.calibration)
 
-        except IndexError:
+            self.x_left = self.eye_left.origin[0] + self.eye_left.pupil.x
+            self.y_left = self.eye_left.origin[1] + self.eye_left.pupil.y
+            self.x_right = self.eye_right.origin[0] + self.eye_right.pupil.x
+            self.y_right = self.eye_right.origin[1] + self.eye_right.pupil.y
+
+            self.X = [self.x_left - self.left_point[0] + self.y_left - self.right_point[0],
+                      self.x_right - self.right_point[0] + self.y_right - self.right_point[0]]
+            self.Y = [landmarks.part(30).x - landmarks.part(27).x, landmarks.part(30).y - landmarks.part(27).y]
+            self.cosXY = (self.X[0] * self.Y[0] + self.X[1] * self.Y[1]) \
+                         / (math.sqrt(self.X[0] ** 2 + self.X[1] ** 2) * math.sqrt(self.Y[0] ** 2 + self.Y[1] ** 2))
+
+
+        except :
             self.eye_left = None
             self.eye_right = None
+
 
     def refresh(self, frame):
         """Refreshes the frame and analyzes it.
@@ -68,16 +83,12 @@ class GazeTracking(object):
     def pupil_left_coords(self):
         """Returns the coordinates of the left pupil"""
         if self.pupils_located:
-            x = self.eye_left.origin[0] + self.eye_left.pupil.x
-            y = self.eye_left.origin[1] + self.eye_left.pupil.y
-            return (x, y)
+            return (self.x_left, self.y_left)
 
     def pupil_right_coords(self):
         """Returns the coordinates of the right pupil"""
         if self.pupils_located:
-            x = self.eye_right.origin[0] + self.eye_right.pupil.x
-            y = self.eye_right.origin[1] + self.eye_right.pupil.y
-            return (x, y)
+            return (self.x_right, self.y_right)
 
     def horizontal_ratio(self):
         """Returns a number between 0.0 and 1.0 that indicates the
