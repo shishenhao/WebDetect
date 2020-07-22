@@ -74,7 +74,7 @@
         <nav>
             <ul>
                 <li><a href="#1">简介</a></li>
-                <li><a href="{{ url_for('uploadpage') }}">开始</a></li> <!--修改-->
+                <li><a href="#2">开始</a></li>
             </ul>
         </nav>
 
@@ -84,8 +84,30 @@
         <!--标签1开始-->
         <article id="1">
             <h2 class="major">简介</h2>
-            <p>斜视(<b>squint</b>)是指两眼不能同时注视目标，属眼外肌疾病，可分为共同性斜视和麻痹性斜视两大类。
+            <p>斜视（<b>squint</b>）是指两眼不能同时注视目标，属眼外肌疾病，可分为共同性斜视和麻痹性斜视两大类。
                 共同性斜视以眼球无运动障碍、第一眼位和第二眼位斜视度相等为主要临床特征；麻痹性斜视则有眼球运动受限，复视，可为先天性，也可因外伤、或全身性疾病导致。</p>
+        </article>
+        <article id="2">
+            <h2 class="major">选择你的检测方式</h2>
+        <div>
+            <ul>
+                <li>
+                    <form action="/videoprocess" method="post" enctype="multipart/form-data" >
+                        <div style="margin: auto; text-align: center; display: inline-block;">
+                            <input type="file" name= "file"  />
+                        </div>
+            　　　      <div style="margin: auto; text-align: center; display: inline-block;">
+                             <input type="submit" value="开始检测视频"  />
+                        </div>
+                     </form>
+                </li>
+                <li>
+                    <form method="post" action="/cameraprocess" >
+                    <button type="submit">使用计算机摄像头检测</button>
+                    </form>
+                </li>
+            </ul>
+        </div>
         </article>
     </div>
     <!-- 版权底部 -->
