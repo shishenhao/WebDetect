@@ -20,10 +20,11 @@ import seaborn as sns
 import warnings
 import os
 import datetime
-import tensorflow as tf
+# import tensorflow as tf
 
-UPLOAD_FOLDER = 'F:/CV_data/real_data'
-SAVE_FOLDER =  'C:/Users/jxj19/Documents/GithubFiles/WebDetect-master/static/video/'
+basedir = os.path.abspath(os.path.dirname(__file__))
+UPLOAD_FOLDER = '/home/hichens/Datasets/xieshi/'
+SAVE_FOLDER = os.path.join(basedir,  'static/video/')
 ALLOWED_EXTENSIONS = set(['mp4', 'flv'])
 
 sns.set()
@@ -197,7 +198,8 @@ def video_feed():
 def uploadpage():
     # return the index of process the video which is from the local or the online caught
     #type
-    global video
+    global video, flag
+    flag = False
     video = 0
     return render_template("upload.html")
 
