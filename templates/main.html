@@ -76,10 +76,11 @@
             }());
         }
     </script>
-
+<!--
     <script>
       alert("将打开你电脑的摄像头！")
     </script>
+-->
 {% endblock %}
 
 {% block content %}
@@ -89,7 +90,7 @@
         <p><strong>请按照提示转动你的眼睛谢谢！</strong></p>
     </div>
 	<div style="margin: 2% 0 0 0 ; text-align: center;">
-            <a href="{{ url_for('index') }}"><input class="btn" type="button" name="Go Back" value="Go Back"/></a>
+            <a href="{{ url_for('uploadpage') }}"><input class="btn" type="button" name="Go Back" value="Go Back"/></a>
             <a href="{{ url_for('result') }}"><input class="btn" type="button" name="Test" value="Result"/></a>
         </div>
 	<div style="text-align:center">

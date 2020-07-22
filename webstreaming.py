@@ -5,11 +5,11 @@ python webstreaming.py
 改为使用opencv打开摄像头
 '''
 
-
 from GazeTracking.FindEye import findeye
 from flask import Response
-from flask import Flask
+from flask import Flask, request, redirect, url_for
 from flask import render_template
+from werkzeug.utils import secure_filename
 import threading
 import argparse
 import time
@@ -20,16 +20,26 @@ import seaborn as sns
 import warnings
 import os
 import datetime
+# import tensorflow as tf
+
+basedir = os.path.abspath(os.path.dirname(__file__))
+UPLOAD_FOLDER = '/home/hichens/Datasets/xieshi/'
+SAVE_FOLDER = os.path.join(basedir,  'static/video/')
+ALLOWED_EXTENSIONS = set(['mp4', 'flv'])
 
 sns.set()
 warnings.filterwarnings("ignore")
 
 
+
 outputFrame = None
 lock = threading.Lock()
 app = Flask(__name__)
-app.config['SEND_FILE_MAX_AGE_DEFAULT'] = datetime.timedelta(seconds=1)
+app.config['SEND_FILE_MAX_AGE_DEFAULT'] = datetime.timedelta(seconds=0)
+app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024
+
 flag = False # control the camera
+filename = ''
 
 # 统计变量
 Xrelative = []
@@ -37,25 +47,26 @@ Yrelative = []
 cosValue = []
 
 # video="http://admin:admin@192.168.43.1:8081/"   #此处@后的ipv4 地址需要修改为自己的地址
-video = 0 #
+video = 0 #"http://admin:admin@192.168.43.1:8081/" #
 # "/home/hichens/Datasets/xieshi/lj.mp4"
 
+
+#@app.route("/index")
 @app.route("/")
-@app.route("/index.html")
 def index():
     # return the rendered template
     global flag
     flag = False
     return render_template("index.html")
 
-@app.route("/main.html")
+@app.route("/main")
 def main():
     # return the rendered template
     global flag
     flag = True
     return render_template("main.html")
 
-@app.route("/result.html")
+@app.route("/result")
 def result():
     global flag
     flag = False
@@ -144,13 +155,13 @@ def detect():
             pass
 
 
-@app.route("/result.html")
+@app.route("/result")
 def open():
     global flag
     flag = True
     return render_template("result.html")
 
-@app.route("/result.html")
+@app.route("/result")
 def close():
     global flag
     flag = False
@@ -182,6 +193,35 @@ def video_feed():
     # type (mime type)
     return Response(generate(),
         mimetype = "multipart/x-mixed-replace; boundary=frame")
+
+@app.route("/upload")
+def uploadpage():
+    # return the index of process the video which is from the local or the online caught
+    #type
+    global video, flag
+    flag = False
+    video = 0
+    return render_template("upload.html")
+
+def allowed_file(filename):
+    return '.' in filename and \
+           filename.rsplit('.', 1)[1] in ALLOWED_EXTENSIONS
+
+@app.route('/videoprocess', methods=['GET', 'POST'])
+def upload_file():
+    global filename, video
+    if request.method == 'POST':
+        file = request.files['file']
+        #if file:
+            #print(file)
+        if file and allowed_file(file.filename):
+            filename = secure_filename(file.filename)
+            #print(filename)
+            file.save(SAVE_FOLDER+filename)
+            video = SAVE_FOLDER+filename
+            return redirect(url_for('main'))
+
+        return redirect(url_for('uploadpage'))
 
 
 if __name__ == '__main__':
