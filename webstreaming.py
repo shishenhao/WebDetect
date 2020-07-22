@@ -194,14 +194,14 @@ def video_feed():
     return Response(generate(),
         mimetype = "multipart/x-mixed-replace; boundary=frame")
 
-@app.route("/upload")
-def uploadpage():
-    # return the index of process the video which is from the local or the online caught
-    #type
-    global video, flag
-    flag = False
-    video = 0
-    return render_template("upload.html")
+# @app.route("/upload")
+# def uploadpage():
+#     # return the index of process the video which is from the local or the online caught
+#     #type
+#     global video, flag
+#     flag = False
+#     video = 0
+#     return render_template("/#2.html")
 
 def allowed_file(filename):
     return '.' in filename and \
@@ -210,18 +210,26 @@ def allowed_file(filename):
 @app.route('/videoprocess', methods=['GET', 'POST'])
 def upload_file():
     global filename, video
+
     if request.method == 'POST':
         file = request.files['file']
-        #if file:
-            #print(file)
         if file and allowed_file(file.filename):
             filename = secure_filename(file.filename)
-            #print(filename)
+            print(filename)
             file.save(SAVE_FOLDER+filename)
             video = SAVE_FOLDER+filename
             return redirect(url_for('main'))
+        else:
+            return redirect(url_for('index')+"#2")
 
-        return redirect(url_for('uploadpage'))
+        #return redirect(url_for('uploadpage'))
+
+@app.route('/cameraprocess', methods=['GET', 'POST'])
+def camerapage():
+    global video
+    if request.method == 'POST':
+        video = 0
+        return redirect(url_for('main'))
 
 
 if __name__ == '__main__':
